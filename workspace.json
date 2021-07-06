@@ -1,0 +1,127 @@
+{
+  "version": 2,
+  "projects": {
+    "launchpad": {
+      "root": "apps/launchpad",
+      "sourceRoot": "apps/launchpad/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/launchpad",
+            "index": "apps/launchpad/src/index.html",
+            "main": "apps/launchpad/src/main.tsx",
+            "polyfills": "apps/launchpad/src/polyfills.ts",
+            "tsConfig": "apps/launchpad/tsconfig.app.json",
+            "assets": [
+              "apps/launchpad/src/favicon.ico",
+              "apps/launchpad/src/assets"
+            ],
+            "styles": ["apps/launchpad/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/launchpad/src/environments/environment.ts",
+                  "with": "apps/launchpad/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "launchpad:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "launchpad:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/launchpad/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/launchpad"],
+          "options": {
+            "jestConfig": "apps/launchpad/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "launchpad-e2e": {
+      "root": "apps/launchpad-e2e",
+      "sourceRoot": "apps/launchpad-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/launchpad-e2e/cypress.json",
+            "tsConfig": "apps/launchpad-e2e/tsconfig.e2e.json",
+            "devServerTarget": "launchpad:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "launchpad:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/launchpad-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "launchpad"
+}

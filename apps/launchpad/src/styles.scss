@@ -4,6 +4,11 @@ $midgrey: #b4b2b2;
 $darkgrey: #554842;
 $red: #f01a19;
 $darkred: #a75248;
+$buttonSize: 200px;
+$buttonDropSize: 15px;
+$buttonColor: #f74d4d;
+$buttonColor2: #f86569;
+$buttonDropColor: #e24f4f;
 
 body {
   min-height: 100vh;
@@ -16,23 +21,88 @@ body {
   overflow: hidden;
 }
 
+// expand full screen
+.app-container {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+// vertically expand to fill space
+.launch-pad-container {
+  opacity: 0.5;
+  min-width: 400px;
+  width: 30%;
+  background: black;
+  display: flex;
+  align-items: center;
+}
+
+.main-panel-container {
+  flex-direction: row;
+  width: 100%;
+}
+
 .copyright {
   position: absolute;
-  bottom: 0;
+  right: 12px;
+  bottom: 12px;
   color: $midgrey;
-  width: 100%;
   text-align: center;
 }
 
+.rocket-container {
+  height: 100%;
+}
+
+.launch-pad-button {
+  width: 100%;
+}
+
+.button {
+  width: $buttonSize;
+  height: $buttonSize - $buttonSize/10;
+  line-height: $buttonSize;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background: $buttonColor;
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0 auto;
+
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, $buttonColor),
+    color-stop(100%, $buttonColor2)
+  );
+
+  box-shadow: 0 $buttonDropSize $buttonDropColor;
+
+  &:active {
+    box-shadow: 0 0 $buttonDropColor;
+    transform: translate(0, $buttonDropSize);
+    transition: all 0.1s ease-out;
+  }
+}
+
 .rocket {
-  position: absolute;
+  position: relative;
   top: 20%;
   width: 80px;
   left: calc(50% - 60px);
+
   .rocket-body {
     width: 80px;
     left: calc(50% - 50px);
     animation: bounce 0.5s infinite;
+
     .body {
       background-color: $lightgrey;
       height: 180px;
@@ -42,6 +112,13 @@ body {
       border-bottom-left-radius: 50%;
       border-bottom-right-radius: 50%;
       border-top: 5px solid $white;
+
+      .logo {
+        width: 83px;
+        height: 60px;
+        position: absolute;
+        bottom: 28px;
+      }
     }
     &:before {
       content: '';

@@ -1,4 +1,5 @@
-import './rocket.module.scss';
+import styles from './rocket.module.scss';
+// import './rocket.scss';
 import logo from './logo.svg';
 
 export interface RocketProps {
@@ -6,40 +7,47 @@ export interface RocketProps {
 }
 
 export function Rocket(props: RocketProps) {
+  console.log(styles);
   return (
-    <div className="rocket-container">
-      <div className="rocket">
-        <div className="rocket-body">
-          <div className="body">
-            <img src={logo} alt="Nrwl logo" className="logo" />
+    <div className={styles['rocket-container']}>
+      <div className={styles.rocket}>
+        <div
+          className={`${styles['rocket-body']} ${
+            props.isLaunching ? styles['rocket-bouncing'] : ''
+          }`}
+        >
+          <div className={styles.body}>
+            <img src={logo} alt="Nrwl logo" className={styles.logo} />
           </div>
-          <div className="fin fin-left"></div>
-          <div className="fin fin-right"></div>
-          <div className="window"></div>
-          {props.isLaunching && <div className="exhaust-flame"></div>}
+          <div className={`${styles.fin} ${styles['fin-left']}`}></div>
+          <div className={`${styles.fin} ${styles['fin-right']}`}></div>
+          <div className={styles.window}></div>
+          {props.isLaunching && <div className={styles['exhaust-flame']}></div>}
         </div>
         {props.isLaunching && (
-          <ul className="exhaust-fumes">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+          <>
+            <ul className={styles['exhaust-fumes']}>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+            <ul className={styles.star}>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </>
         )}
-        <ul className="star">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
       </div>
     </div>
   );

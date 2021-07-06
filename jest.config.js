@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/launchpad'],
+  projects: ['<rootDir>/apps/launchpad', '<rootDir>/libs/rocket'],
 };

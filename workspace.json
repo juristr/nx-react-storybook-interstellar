@@ -102,6 +102,27 @@
           }
         }
       }
+    },
+    "rocket": {
+      "root": "libs/rocket",
+      "sourceRoot": "libs/rocket/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/rocket/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/rocket"],
+          "options": {
+            "jestConfig": "libs/rocket/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

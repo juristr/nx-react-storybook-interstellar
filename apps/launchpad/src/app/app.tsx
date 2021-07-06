@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import { Rocket } from '@interstellar/rocket';
 
 export function App() {
   return (
@@ -10,39 +10,7 @@ export function App() {
         </div>
       </div>
       <div className="main-panel-container">
-        <div className="rocket-container">
-          <div className="rocket">
-            <div className="rocket-body">
-              <div className="body">
-                <img src={logo} className="logo" />
-              </div>
-              <div className="fin fin-left"></div>
-              <div className="fin fin-right"></div>
-              <div className="window"></div>
-              <div className="exhaust-flame"></div>
-            </div>
-            <ul className="exhaust-fumes">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-            <ul className="star">
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </div>
-        </div>
+        <Rocket />
         <p className="copyright">
           Rocket CSS animation kindly brought to you by{' '}
           <a href="https://codepen.io/eva_trostlos">Eva Letter</a> on{' '}

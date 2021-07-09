@@ -4,6 +4,10 @@ $buttonColor: #f74d4d;
 $buttonColor2: #f86569;
 $buttonDropColor: #e24f4f;
 
+.disabled {
+  opacity: 0.5;
+}
+
 .button {
   width: $buttonSize;
   height: $buttonSize - $buttonSize/10;
@@ -17,6 +21,7 @@ $buttonDropColor: #e24f4f;
   text-transform: capitalize;
   margin: 0 auto;
   color: white;
+  user-select: none;
 
   background-image: -webkit-gradient(
     linear,
@@ -28,9 +33,11 @@ $buttonDropColor: #e24f4f;
 
   box-shadow: 0 $buttonDropSize $buttonDropColor;
 
-  &:active {
-    box-shadow: 0 0 $buttonDropColor;
-    transform: translate(0, $buttonDropSize);
-    transition: all 0.1s ease-out;
+  &:not(.disabled) {
+    &:active {
+      box-shadow: 0 0 $buttonDropColor;
+      transform: translate(0, $buttonDropSize);
+      transition: all 0.1s ease-out;
+    }
   }
 }

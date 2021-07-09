@@ -1,94 +1,77 @@
-
-
 # Interstellar
 
-This project was generated using [Nx](https://nx.dev).
+This is a small demo app showcasing [Nx](https://nx.dev) + React + Storybook.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+![](./docs/interstellar-app.png)
 
-🔎 **Smart, Extensible Build Framework**
+## Tour and Remarks
 
-## Adding capabilities to your workspace
+The monorepo basically consists of a `launch-pad` React application and 3 libraries:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- `control-panel`: basically contains the launch button for the Rocket
+- `rocket`: the actual rocket UI
+- `interstellar-styles`: the common styles referenced via the `stylePreprocessorOptions` options in the `workspace.json`. This "lib" serves as the place where to have the workspace common styles.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+The libraries are generated via the Nx generator for React libraries:
 
-Below are our core plugins:
+```
+$ yarn nx g @nrwl/react:lib ...
+```
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+Storybook support can be added to libraries by first installing `@nrwl/storybook` and then generating storybook config for the given project. For example:
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+```
+$ yarn nx g @nrwl/react:storybook-configuration rocket
+```
 
-## Generate an application
+The above comand adds Storybook support to the `rocket` library with options to automatically generate Stories as well. Note, stories can also be generated at a later point by using the `stories` generator (recommended way to discover these generators is to use the VSCode Nx Console).
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+The interesting part of Nx is how it integrates in this case React + Storybook + Cypress, and makes the configuration as seamless as possible.
 
-> You can use any of the plugins above to generate applications as well.
+**For the video** - don't put too much emphasis on the actual configuration of storybook (e.g. the content in `main.js` and `webpack.config.js`). Those are about to change soon and getting simplified a lot.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+## Setup & Running the project
 
-## Generate a library
+Clone the repo and run `yarn` to install the dependencies.
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+### Launching the App
 
-> You can also use any of the plugins above to generate libraries as well.
+Just use `yarn start` to run the app. Alternative to use the full command use `yarn nx serve launchpad`
 
-Libraries are shareable across libraries and applications. They can be imported from `@interstellar/mylib`.
+### Launching Storybook
 
-## Development server
+There are two Nx libraries, both of them have Storybook set up. Here's how to run the storybook for each of them.
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+The command to launch Storybook with Nx is
 
-## Code scaffolding
+```
+$ yarn nx storybook <project-name>
+$ yarn nx run <project-name>:storybook
+```
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+Both ways work. So for this repo that'd would be:
 
-## Build
+```
+$ yarn nx storybook rocket
+$ yarn nx storybook control-panel
+```
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Running Cypress e2e tests for Storybook
 
-## Running unit tests
+Nx can automatically setup Cypress to test your Storybook stories.
+The generic command to run Cypress tests is
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+```
+$ yarn nx run <project-name>-e2e:e2e
+```
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+In this specific repo there are Cypress e2e tests for both, the `control-panel` library as well as `rocket` library. They are both grouped under the `apps/storybook-e2e/...` folder.
 
-## Running end-to-end tests
+Thus running them can be done like:
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+```
+$ yarn nx e2e storybook-e2e-control-panel-e2e
+$ yarn nx e2e storybook-e2e-rocket-e2e
+```
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+> Note: the automatically generated `launchpad-e2e` can be ignored.

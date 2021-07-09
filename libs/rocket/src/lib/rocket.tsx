@@ -9,7 +9,7 @@ export interface RocketProps {
 export function Rocket(props: RocketProps) {
   console.log(styles);
   return (
-    <div className={styles['rocket-container']}>
+    <div className={styles['rocket-container']} data-testing="rocket">
       <div className={styles.rocket}>
         <div
           className={`${styles['rocket-body']} ${
@@ -26,7 +26,7 @@ export function Rocket(props: RocketProps) {
         </div>
         {props.isLaunching && (
           <>
-            <ul className={styles['exhaust-fumes']}>
+            <ul className={styles['exhaust-fumes']} data-testing="rocket-fumes">
               <li></li>
               <li></li>
               <li></li>
@@ -37,7 +37,7 @@ export function Rocket(props: RocketProps) {
               <li></li>
               <li></li>
             </ul>
-            <ul className={styles.star}>
+            <ul className={styles.star} data-testing="stars">
               <li></li>
               <li></li>
               <li></li>

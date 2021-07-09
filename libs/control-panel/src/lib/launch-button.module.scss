@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $buttonSize: 200px;
 $buttonDropSize: 15px;
 $buttonColor: #f74d4d;
@@ -10,7 +12,7 @@ $buttonDropColor: #e24f4f;
 
 .button {
   width: $buttonSize;
-  height: $buttonSize - $buttonSize/10;
+  height: $buttonSize - math.div($buttonSize, 10);
   line-height: $buttonSize;
   text-align: center;
   cursor: pointer;
